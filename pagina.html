@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Preguntas de Cultura General</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+      padding: 50px;
+    }
+    #pregunta {
+      font-size: 1.5em;
+      margin: 20px 0;
+    }
+    #respuesta {
+      font-size: 1.2em;
+      color: #333;
+      margin: 20px 0;
+      display: none;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Preguntas de Cultura General</h1>
+  <div id="pregunta">Haz clic en el botón para obtener una pregunta.</div>
+  <div id="respuesta"></div>
+  <button onclick="nuevaPregunta()">Nueva Pregunta</button>
+  <button onclick="mostrarRespuesta()">Mostrar Respuesta</button>
+
+  <script>
+    // Array con las 300 preguntas y respuestas (aquí solo las primeras 20, pero puedes agregar más)
+    const preguntas = [
+      { pregunta: "¿Quién pintó 'La Mona Lisa'?", respuesta: "Leonardo Da Vinci" },
+      { pregunta: "¿En qué año se descubrió América?", respuesta: "1492" },
+      { pregunta: "¿Cuál es el río más largo del mundo?", respuesta: "El Amazonas" },
+      { pregunta: "¿Quién escribió 'Cien años de soledad'?", respuesta: "Gabriel García Márquez" },
+      { pregunta: "¿En qué país se encuentra la ciudad de Petra?", respuesta: "Jordania" },
+      { pregunta: "¿Quién fue el primer presidente de los Estados Unidos?", respuesta: "George Washington" },
+      { pregunta: "¿Cuál es la capital de Francia?", respuesta: "París" },
+      { pregunta: "¿Qué instrumento musical tiene 88 teclas?", respuesta: "El piano" },
+      { pregunta: "¿Quién fue el autor de 'Don Quijote de la Mancha'?", respuesta: "Miguel de Cervantes" },
+      { pregunta: "¿Cuál es la moneda oficial de Japón?", respuesta: "El yen" },
+      { pregunta: "¿Qué océano baña las costas de Argentina?", respuesta: "El Océano Atlántico" },
+      { pregunta: "¿En qué continente se encuentra el desierto del Sahara?", respuesta: "África" },
+      { pregunta: "¿En qué año terminó la Segunda Guerra Mundial?", respuesta: "1945" },
+      { pregunta: "¿Quién fue el fundador de la teoría de la relatividad?", respuesta: "Albert Einstein" },
+      { pregunta: "¿Cuál es el elemento químico con el símbolo 'O'?", respuesta: "Oxígeno" },
+      { pregunta: "¿Cuál es el nombre del satélite natural de la Tierra?", respuesta: "La Luna" },
+      { pregunta: "¿Cuál es la capital de Italia?", respuesta: "Roma" },
+      { pregunta: "¿Cuántos continentes hay en el mundo?", respuesta: "Siete" },
+      { pregunta: "¿Quién inventó la bombilla eléctrica?", respuesta: "Thomas Edison" },
+      { pregunta: "¿Cuál es el animal terrestre más grande?", respuesta: "El elefante africano" },
+      { pregunta: "¿Qué país es conocido como 'La Tierra del Sol Naciente'?", respuesta: "Japón" },
+      { pregunta: "¿Qué instrumento musical tiene 88 teclas?", respuesta: "El piano" },
+  { pregunta: "¿Qué instrumento musical tiene 88 teclas?", respuesta: "El piano" },
+{ pregunta: "¿Quién fue el autor de 'Don Quijote de la Mancha'?", respuesta: "Miguel de Cervantes" },
+{ pregunta: "¿Cuál es la moneda oficial de Japón?", respuesta: "El yen" },
+{ pregunta: "¿Qué océano baña las costas de Argentina?", respuesta: "El Océano Atlántico" },
+{ pregunta: "¿En qué continente se encuentra el desierto del Sahara?", respuesta: "África" },
+{ pregunta: "¿En qué año terminó la Segunda Guerra Mundial?", respuesta: "1945" },
+{ pregunta: "¿Quién fue el fundador de la teoría de la relatividad?", respuesta: "Albert Einstein" },
+{ pregunta: "¿Cuál es el elemento químico con el símbolo 'O'?", respuesta: "Oxígeno" },
+{ pregunta: "¿Cuál es el nombre del satélite natural de la Tierra?", respuesta: "La Luna" },
+{ pregunta: "¿Cuál es la capital de Italia?", respuesta: "Roma" },
+{ pregunta: "¿Cuántos continentes hay en el mundo?", respuesta: "Siete" },
+{ pregunta: "¿Quién inventó la bombilla eléctrica?", respuesta: "Thomas Edison" },
+{ pregunta: "¿Cuál es el animal terrestre más grande?", respuesta: "El elefante africano" },
+{ pregunta: "¿Qué país es conocido como 'La Tierra del Sol Naciente'?", respuesta: "Japón" },
+{ pregunta: "¿Quién fue el último emperador de China?", respuesta: "Puyi" },
+{ pregunta: "¿En qué país se encuentra el Taj Mahal?", respuesta: "India" },
+{ pregunta: "¿Qué continente tiene más países?", respuesta: "África" },
+{ pregunta: "¿En qué año empezó la Revolución Francesa?", respuesta: "1789" },
+{ pregunta: "¿Cuál es el país más grande del mundo por superficie?", respuesta: "Rusia" },
+{ pregunta: "¿Qué océano baña las costas de Australia?", respuesta: "El océano Pacífico" },
+{ pregunta: "¿Cuál es la capital de Egipto?", respuesta: "El Cairo" },
+{ pregunta: "¿Quién pintó 'La última cena'?", respuesta: "Leonardo Da Vinci" },
+{ pregunta: "¿En qué continente está ubicada la selva del Amazonas?", respuesta: "América del Sur" },
+{ pregunta: "¿Quién fue el primer hombre en llegar a la luna?", respuesta: "Neil Armstrong" },
+{ pregunta: "¿Cuántos huesos tiene el cuerpo humano adulto?", respuesta: "206" },
+{ pregunta: "¿Cuál es la montaña más alta del mundo?", respuesta: "El Everest" },
+{ pregunta: "¿Qué país tiene el mayor número de habitantes?", respuesta: "China" },
+{ pregunta: "¿Quién es el autor de 'Harry Potter'?", respuesta: "J.K. Rowling" },
+{ pregunta: "¿Qué es el sol?", respuesta: "Una estrella" },
+{ pregunta: "¿Cuál es la ciudad más grande de Estados Unidos?", respuesta: "Nueva York" },
+{ pregunta: "¿En qué país se originó la pizza?", respuesta: "Italia" },
+{ pregunta: "¿Cuál es el deporte más popular del mundo?", respuesta: "El fútbol" },
+{ pregunta: "¿Qué país fue el primero en enviar un ser vivo al espacio?", respuesta: "La Unión Soviética" },
+{ pregunta: "¿En qué año se estrenó la película 'Titanic'?", respuesta: "1997" },
+{ pregunta: "¿En qué país nació el pintor Pablo Picasso?", respuesta: "España" },
+{ pregunta: "¿Cuántos jugadores hay en un equipo de fútbol?", respuesta: "11" },
+{ pregunta: "¿Quién es el autor de '1984'?", respuesta: "George Orwell" },
+{ pregunta: "¿Qué tipo de animal es un canguro?", respuesta: "Un mamífero marsupial" },
+{ pregunta: "¿Cuál es el símbolo químico del oro?", respuesta: "Au" },
+{ pregunta: "¿En qué país se encuentra la Torre Eiffel?", respuesta: "Francia" },
+{ pregunta: "¿Quién fue el pintor de 'Las Meninas'?", respuesta: "Diego Velázquez" },
+{ pregunta: "¿Qué es el ADN?", respuesta: "Ácido desoxirribonucleico" },
+{ pregunta: "¿Cuál es la continente más pequeño del mundo?", respuesta: "Oceanía" },
+{ pregunta: "¿Quién fue el primer emperador de Roma?", respuesta: "Augusto" },
+{ pregunta: "¿Cuántos planetas hay en el sistema solar?", respuesta: "Ocho" },
+{ pregunta: "¿Qué día es el Día de la Independencia de México?", respuesta: "16 de septiembre" },
+{ pregunta: "¿En qué país se encuentra la ciudad de Machu Picchu?", respuesta: "Perú" },
+{ pregunta: "¿En qué país nació el filósofo Sócrates?", respuesta: "Grecia" },
+{ pregunta: "¿Qué es el Big Bang?", respuesta: "La teoría sobre el origen del universo" },
+{ pregunta: "¿Cuál es la lengua más hablada del mundo?", respuesta: "El chino mandarín" },
+{ pregunta: "¿Qué país es conocido por la pirámide de Giza?", respuesta: "Egipto" },
+{ pregunta: "¿Quién fue el líder de la Revolución Cubana?", respuesta: "Fidel Castro" },
+{ pregunta: "¿Qué tipo de animal es una ballena?", respuesta: "Un mamífero" },
+{ pregunta: "¿Qué es la teoría de la evolución?", respuesta: "La teoría científica de que las especies cambian con el tiempo" },
+{ pregunta: "¿Quién fue el creador del psicoanálisis?", respuesta: "Sigmund Freud" },
+{ pregunta: "¿Cuál es la capital de España?", respuesta: "Madrid" },
+{ pregunta: "¿Cuál es el océano más grande del mundo?", respuesta: "El Pacífico" },
+{ pregunta: "¿En qué año cayó el Muro de Berlín?", respuesta: "1989" },
+{ pregunta: "¿Quién escribió 'Romeo y Julieta'?", respuesta: "William Shakespeare" },
+{ pregunta: "¿Qué país es famoso por sus canales y bicicletas?", respuesta: "Países Bajos" },
+{ pregunta: "¿Qué tipo de energía se obtiene del viento?", respuesta: "Energía eólica" },
+{ pregunta: "¿Qué metal es el más abundante en la Tierra?", respuesta: "El hierro" },
+{ pregunta: "¿Quién fue el creador de la teoría de la gravedad?", respuesta: "Isaac Newton" },
+{ pregunta: "¿En qué país se encuentra la famosa isla de Bali?", respuesta: "Indonesia" },
+{ pregunta: "¿Cuál es el símbolo químico del agua?", respuesta: "H₂O" },
+{ pregunta: "¿En qué año se firmó la Declaración de Independencia de los Estados Unidos?", respuesta: "1776" },
+{ pregunta: "¿Qué país es famoso por sus castillos y whisky?", respuesta: "Escocia" },
+{ pregunta: "¿Quién fue el creador de la relatividad general?", respuesta: "Albert Einstein" },
+{ pregunta: "¿Qué continente tiene el país más grande del mundo?", respuesta: "Asia" },
+{ pregunta: "¿Quién escribió 'Frankenstein'?", respuesta: "Mary Shelley" },
+{ pregunta: "¿En qué país se encuentra la ciudad de Casablanca?", respuesta: "Marruecos" },
+{ pregunta: "¿Qué órgano del cuerpo humano produce la insulina?", respuesta: "El páncreas" },
+{ pregunta: "¿Cuál es el país más pequeño del mundo?", respuesta: "El Vaticano" },
+{ pregunta: "¿Qué personaje es conocido como el 'Rey del Pop'?", respuesta: "Michael Jackson" },
+{ pregunta: "¿Qué continente tiene el país más poblado del mundo?", respuesta: "Asia" },
+{ pregunta: "¿En qué país se inventó el cine?", respuesta: "Francia" },
+{ pregunta: "¿Cuántos pares de cromosomas tiene un ser humano?", respuesta: "23" },
+{ pregunta: "¿Cuál es el nombre del primer satélite artificial?", respuesta: "Sputnik 1" },
+{ pregunta: "¿En qué continente se encuentra el monte Kilimanjaro?", respuesta: "África" },
+{ pregunta: "¿En qué país se encuentran las pirámides de Egipto?", respuesta: "Egipto" },
+{ pregunta: "¿Quién escribió 'Matar a un ruiseñor'?", respuesta: "Harper Lee" },
+{ pregunta: "¿En qué país se originó el tango?", respuesta: "Argentina" },
+{ pregunta: "¿En qué año comenzó la Primera Guerra Mundial?", respuesta: "1914" },
+{ pregunta: "¿Qué gas es el más abundante en la atmósfera terrestre?", respuesta: "El nitrógeno" },
+{ pregunta: "¿Cuál es el único continente habitado sin desiertos?", respuesta: "Europa" },
+{ pregunta: "¿En qué continente se encuentra la Gran Muralla China?", respuesta: "Asia" },
+{ pregunta: "¿Qué animal es conocido por su capacidad de cambiar de color?", respuesta: "El camaleón" },
+{ pregunta: "¿Qué famoso físico desarrolló las leyes del movimiento?", respuesta: "Isaac Newton" },
+{ pregunta: "¿Qué animal es conocido por su memoria prodigiosa?", respuesta: "El elefante" },
+{ pregunta: "¿Qué es la capa de ozono?", respuesta: "Una capa en la atmósfera que protege la Tierra de los rayos UV" },
+{ pregunta: "¿Cuál es el animal nacional de Australia?", respuesta: "El canguro" },
+{ pregunta: "¿Cuál es el país con más medallas olímpicas?", respuesta: "Estados Unidos" },
+{ pregunta: "¿En qué año se descubrió América?", respuesta: "1492" },
+{ pregunta: "¿En qué ciudad se encuentra el Coliseo?", respuesta: "Roma" },
+{ pregunta: "¿Qué parte del cuerpo humano es responsable del sentido del olfato?", respuesta: "La nariz" },
+{ pregunta: "¿En qué país nació el pintor Salvador Dalí?", respuesta: "España" },
+{ pregunta: "¿Cuántos segundos tiene un minuto?", respuesta: "60" },
+{ pregunta: "¿Qué animal es el más rápido del mundo?", respuesta: "El guepardo" },
+{ pregunta: "¿Cuál es la segunda lengua más hablada del mundo?", respuesta: "El español" },
+{ pregunta: "¿En qué ciudad se celebran los Juegos Olímpicos de 2024?", respuesta: "París" },
+{ pregunta: "¿Qué instrumento musical es conocido como el 'rey de los instrumentos'?", respuesta: "El órgano" }
+
+    ];
+
+    // Función para obtener una pregunta aleatoria sin repeticiones
+    let preguntasRestantes = [...preguntas]; // Copiar el array de preguntas
+
+    function nuevaPregunta() {
+      if (preguntasRestantes.length === 0) {
+        alert("¡No hay más preguntas!");
+        return;
+      }
+      
+      // Seleccionar una pregunta aleatoria
+      const indiceAleatorio = Math.floor(Math.random() * preguntasRestantes.length);
+      const preguntaSeleccionada = preguntasRestantes.splice(indiceAleatorio, 1)[0]; // Eliminar la pregunta seleccionada del array
+
+      // Mostrar la pregunta en la página
+      document.getElementById('pregunta').textContent = preguntaSeleccionada.pregunta;
+      document.getElementById('respuesta').style.display = 'none'; // Ocultar la respuesta
+
+      // Guardar la respuesta correcta para mostrarla después
+      document.getElementById('respuesta').textContent = "Respuesta: " + preguntaSeleccionada.respuesta;
+    }
+
+    // Función para mostrar la respuesta de la pregunta actual
+    function mostrarRespuesta() {
+      document.getElementById('respuesta').style.display = 'block'; // Mostrar la respuesta
+    }
+  </script>
+</body>
+</html>
